@@ -29,6 +29,8 @@ let initializeDBAndServer = async () => {
 
 initializeDBAndServer();
 
+
+//Get the list of details of all states
 app.get("/states", async (request, response) => {
   let sql_query = `
         SELECT
@@ -38,6 +40,8 @@ app.get("/states", async (request, response) => {
   response.send(result1);
 });
 
+
+//Get a specific state details
 app.get("/states/:stateId", async (request, response) => {
   let { stateId } = request.params;
   let sql_query = `
@@ -51,6 +55,8 @@ app.get("/states/:stateId", async (request, response) => {
   response.send(result2);
 });
 
+
+//Creating a district in the district table
 app.post("/districts", async (request, response) => {
   let { districtName, stateId, cases, cured, active, deaths } = request.body;
   let post_sql_query = `
@@ -61,6 +67,8 @@ app.post("/districts", async (request, response) => {
   response.send("District Successfully Added");
 });
 
+
+//Returning district details  based on district ID
 app.get("/districts/:districtId", async (request, response) => {
   let { districtId } = request.params;
   let sql_query = `
@@ -78,6 +86,8 @@ app.get("/districts/:districtId", async (request, response) => {
   response.send(result);
 });
 
+
+//Delete a district
 app.delete("/districts/:districtId", async (request, response) => {
   let { districtId } = request.params;
   let delete_sql_query = `
@@ -87,6 +97,7 @@ app.delete("/districts/:districtId", async (request, response) => {
   response.send("District Removed");
 });
 
+//Update a district
 app.put("/districts/:districtId", async (request, response) => {
   let { districtName, stateId, cases, cured, active, deaths } = request.body;
   let { districtId } = request.params;
@@ -106,6 +117,8 @@ app.put("/districts/:districtId", async (request, response) => {
   response.send("District Details Updated");
 });
 
+
+//Return the statistics based on state ID
 app.get("/states/:stateId/stats", async (request, response) => {
   let { stateId } = request.params;
   let sql_query = `
